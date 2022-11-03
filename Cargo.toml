@@ -7,6 +7,3 @@ rust-version = "1.64"
 description = "A simple password generator for the command line."
 license = "Apache-2.0"
 publish = false
-
-[[bin]]
-name = "pwdgen"

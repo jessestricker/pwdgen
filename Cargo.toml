@@ -8,3 +8,6 @@ rust-version = "1.56.0"
 description = "A simple password generator for the command line."
 license = "Apache-2.0"
 publish = false
+
+[dependencies]
+clap = { version = "4.0.18", features = ["derive"] }

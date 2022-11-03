@@ -1,0 +1,70 @@
+name: Rust Check
+
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+
+permissions: { contents: read }
+env: { CARGO_TERM_COLOR: always }
+defaults: { run: { shell: bash } }
+
+jobs:
+  build_and_test:
+    name: Build & Test
+    strategy:
+      matrix:
+        os: [macOS, Ubuntu, Windows]
+        rust-version: ["1.56.0", stable] # keep MSRV in sync with /Cargo.toml
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust-version }}
+
+      - name: Cache Rust Dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --all-targets --locked --verbose
+
+      - name: Test
+        run: cargo test --all-targets --locked --verbose
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: clippy
+
+      - name: Cache Rust Dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Lint
+        run: cargo clippy --all-targets --locked --verbose -- --deny warnings
+
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: rustfmt
+
+      - name: Format
+        run: cargo fmt --all --check --verbose

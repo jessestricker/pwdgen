@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Jesse Stricker"]
 edition = "2021"
 # keep MSRV in sync with /.github/workflows/rust-check.yml
-rust-version = "1.56.0"
+rust-version = "1.60.0"
 description = "A simple password generator for the command line."
 license = "Apache-2.0"
 publish = false

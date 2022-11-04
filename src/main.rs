@@ -66,7 +66,7 @@ fn main() {
     if args.verbose {
         eprintln!("Length:     {}", args.length);
         eprintln!("Count:      {}", args.count);
-        eprintln!("Entropy:    {:.2}", spec.entropy());
+        eprintln!("Entropy:    {:.2} bits", spec.entropy());
         eprintln!(
             "Characters: ({}) {}",
             spec.char_set_union().len(),

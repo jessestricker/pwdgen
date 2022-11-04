@@ -19,7 +19,7 @@ struct Args {
     #[arg(short, long, value_enum, default_values_t = Args::DEFAULT_TYPES)]
     types: Vec<NamedCharSet>,
 
-    /// Print extra information about the generated passwords.
+    /// Print extra information about the generated passwords to standard error.
     #[arg(short, long)]
     verbose: bool,
 }

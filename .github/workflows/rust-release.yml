@@ -40,7 +40,7 @@ jobs:
         if: ${{ matrix.os == 'Windows' }}
         run: |
           cd target/install/bin
-          zip "../${{ steps.get-archive-name.outputs.result }}.zip" *
+          7z a "../${{ steps.get-archive-name.outputs.result }}.zip" *
 
       - name: Create Archive (Posix)
         if: ${{ matrix.os != 'Windows' }}

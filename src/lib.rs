@@ -106,6 +106,8 @@ impl<R: RngCore + CryptoRng> Iterator for Generator<R> {
 
 #[cfg(test)]
 mod tests {
+    use rand::rngs::OsRng;
+
     use super::*;
 
     #[test]
@@ -118,5 +120,15 @@ mod tests {
     #[should_panic(expected = "character sets must not be empty")]
     fn password_spec_empty_char_sets() {
         PasswordSpec::new(1.try_into().unwrap(), vec![CharSet::new()]);
+    }
+
+    #[test]
+    fn generator_correct_length() {
+        let spec = PasswordSpec::new(16.try_into().unwrap(), vec![CharSet::from(['a'])]);
+        let gen = Generator::new(OsRng, spec);
+
+        for pwd in gen.take(100) {
+            assert_eq!(pwd.len(), 16);
+        }
     }
 }

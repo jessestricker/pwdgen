@@ -11,3 +11,4 @@ publish = false
 
 [dependencies]
 clap = { version = "4.0.18", features = ["derive"] }
+rand = "0.8.5"

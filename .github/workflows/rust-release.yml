@@ -1,0 +1,77 @@
+name: Rust Release
+
+on:
+  workflow_dispatch:
+
+permissions: { contents: read }
+env: { CARGO_TERM_COLOR: always }
+defaults: { run: { shell: bash } }
+
+jobs:
+  assemble:
+    name: Assemble
+    strategy:
+      matrix:
+        os: [macOS, Ubuntu, Windows]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Install
+        run:
+          cargo install --path . --root target/install --no-track --locked
+          --verbose
+
+      - name: Get Archive Name
+        id: get-archive-name
+        run: |
+          name=$(cargo metadata --no-deps --format-version 1 | jq --raw-output '.packages[].name + "-" + .packages[].version')
+          name="${name}-${{ runner.os }}-${{ runner.arch }}"
+          echo "result=${name,,}" >> $GITHUB_OUTPUT
+
+      - name: Create Archive
+        if: ${{ matrix.os == "Windows" }}
+        run: |
+          cd target/install/bin
+          zip "../${{ steps.get-archive-name.outputs.result }}.zip" *
+
+      - name: Create Archive
+        if: ${{ matrix.os != "Windows" }}
+        run: |
+          cd target/install/bin
+          tar -c -z -f "../${{ steps.get-archive-name.outputs.result }}.tar.gz" *
+
+      - name: Upload Archive
+        if: ${{ matrix.os == "Windows" }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ steps.get-archive-name.outputs.result }}.zip"
+          path:
+            "target/install/${{ steps.get-archive-name.outputs.result }}.zip"
+
+      - name: Upload Archive
+        if: ${{ matrix.os != "Windows" }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ steps.get-archive-name.outputs.result }}.tar.gz"
+          path:
+            "target/install/${{ steps.get-archive-name.outputs.result }}.zip"
+
+  publish:
+    name: Publish
+    needs: assemble
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Archives
+        uses: actions/download-artifact@v3
+
+      - name: Show Archives
+        run: ls -R
+
+      # TODO

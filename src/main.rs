@@ -8,7 +8,7 @@ use rand::rngs::OsRng;
 #[command(version, author, about)]
 struct Args {
     /// The length of the generated passwords.
-    #[arg(short, long, default_value = "16")]
+    #[arg(short, long, default_value = "40")]
     length: NonZeroU32,
 
     /// The number of passwords to generate.

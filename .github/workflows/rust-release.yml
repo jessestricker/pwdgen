@@ -33,7 +33,8 @@ jobs:
         run: |
           name=$(cargo metadata --no-deps --format-version 1 | jq --raw-output '.packages[].name + "-" + .packages[].version')
           name="${name}-${{ runner.os }}-${{ runner.arch }}"
-          echo "result=${name,,}" >> $GITHUB_OUTPUT
+          name=$(echo "${name}" | awk '{print tolower($0)}')
+          echo "result=${name}" >> $GITHUB_OUTPUT
 
       - name: Create Archive (Windows)
         if: ${{ matrix.os == 'Windows' }}

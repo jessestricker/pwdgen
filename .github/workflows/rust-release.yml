@@ -35,19 +35,19 @@ jobs:
           name="${name}-${{ runner.os }}-${{ runner.arch }}"
           echo "result=${name,,}" >> $GITHUB_OUTPUT
 
-      - name: Create Archive
+      - name: Create Archive (Windows)
         if: ${{ matrix.os == 'Windows' }}
         run: |
           cd target/install/bin
           zip "../${{ steps.get-archive-name.outputs.result }}.zip" *
 
-      - name: Create Archive
+      - name: Create Archive (Posix)
         if: ${{ matrix.os != 'Windows' }}
         run: |
           cd target/install/bin
           tar -c -z -f "../${{ steps.get-archive-name.outputs.result }}.tar.gz" *
 
-      - name: Upload Archive
+      - name: Upload Archive (Windows)
         if: ${{ matrix.os == 'Windows' }}
         uses: actions/upload-artifact@v3
         with:
@@ -55,13 +55,13 @@ jobs:
           path:
             "target/install/${{ steps.get-archive-name.outputs.result }}.zip"
 
-      - name: Upload Archive
+      - name: Upload Archive (Posix)
         if: ${{ matrix.os != 'Windows' }}
         uses: actions/upload-artifact@v3
         with:
           name: "${{ steps.get-archive-name.outputs.result }}.tar.gz"
           path:
-            "target/install/${{ steps.get-archive-name.outputs.result }}.zip"
+            "target/install/${{ steps.get-archive-name.outputs.result }}.tar.gz"
 
   publish:
     name: Publish

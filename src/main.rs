@@ -79,3 +79,25 @@ fn main() {
     gen.take(args.count.get() as usize)
         .for_each(|pwd| println!("{}", pwd));
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn named_char_sets_are_disjoint() {
+        let uppercase = NamedCharSet::Uppercase.to_char_set();
+        let lowercase = NamedCharSet::Lowercase.to_char_set();
+        let digits = NamedCharSet::Digits.to_char_set();
+        let symbols = NamedCharSet::Symbols.to_char_set();
+
+        assert!(uppercase.is_disjoint(&lowercase));
+        assert!(uppercase.is_disjoint(&digits));
+        assert!(uppercase.is_disjoint(&symbols));
+
+        assert!(lowercase.is_disjoint(&digits));
+        assert!(lowercase.is_disjoint(&symbols));
+
+        assert!(digits.is_disjoint(&symbols));
+    }
+}

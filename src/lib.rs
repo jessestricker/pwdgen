@@ -17,7 +17,7 @@ impl PasswordSpec {
     pub fn new(length: NonZeroU32, char_sets: Vec<CharSet>) -> Self {
         assert!(
             !char_sets.is_empty(),
-            "vector of character sets should not be empty"
+            "vector of character sets must not be empty"
         );
 
         let char_set_union = {
@@ -25,7 +25,7 @@ impl PasswordSpec {
                 .iter()
                 .cloned()
                 .fold(CharSet::new(), |mut acc, mut x| {
-                    assert!(!x.is_empty(), "character sets should not be empty");
+                    assert!(!x.is_empty(), "character sets must not be empty");
                     acc.append(&mut x);
                     acc
                 });
@@ -101,5 +101,22 @@ impl<R: RngCore + CryptoRng> Iterator for Generator<R> {
             })
             .collect();
         Some(password)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "vector of character sets must not be empty")]
+    fn password_spec_no_char_sets() {
+        PasswordSpec::new(1.try_into().unwrap(), vec![]);
+    }
+
+    #[test]
+    #[should_panic(expected = "character sets must not be empty")]
+    fn password_spec_empty_char_sets() {
+        PasswordSpec::new(1.try_into().unwrap(), vec![CharSet::new()]);
     }
 }

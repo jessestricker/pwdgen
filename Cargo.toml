@@ -1,6 +1,6 @@
 [package]
 name = "pwdgen"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Jesse Stricker"]
 edition = "2021"
 # keep MSRV in sync with /.github/workflows/rust-check.yml

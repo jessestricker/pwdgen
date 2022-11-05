@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2022-11-05
+
+### Miscellaneous Tasks
+
+- Set package version from release script
+- Add changed manifest and lockfile to release commit
+- Require clean working tree for release
+
+### Ci
+
+- Use Python script to assemble package archive
+
 ## [0.1.0] - 2022-11-05
 
 ### Documentation
@@ -21,6 +33,7 @@ All notable changes to this project will be documented in this file.
 ### Miscellaneous Tasks
 
 - Add release script
+- Release 0.1.0
 
 ### Testing
 

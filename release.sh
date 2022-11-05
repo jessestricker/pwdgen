@@ -5,6 +5,10 @@ set -e -u -o pipefail
 # parse inputs
 version="$1"
 
+# set version in manifest and lockfile
+cargo set-version "${version}"
+cargo check --quiet # syncs version in lockfile
+
 # update changelog
 tag="v${version}"
 git-cliff --tag="${tag}" --output=CHANGELOG.md

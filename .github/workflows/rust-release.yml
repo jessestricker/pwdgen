@@ -2,6 +2,7 @@ name: Rust Release
 
 on:
   workflow_dispatch:
+  push: { tags: ["v*.*.*"] }
 
 permissions: { contents: read }
 env: { CARGO_TERM_COLOR: always }
@@ -67,12 +68,35 @@ jobs:
   publish:
     name: Publish
     needs: assemble
+    permissions: { contents: write }
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Cache Rust Dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install git-cliff
+        run: cargo install git-cliff
+
       - name: Download Archives
         uses: actions/download-artifact@v3
+        with:
+          path: artifacts
 
       - name: Show Archives
-        run: ls -R
+        run: find .
+        working-directory: artifacts
 
-      # TODO
+      - name: Generate Release Notes
+        run: |
+          echo 'RELEASE_NOTES<<QLPHHEBORXJEfVzB' >> $GITHUB_ENV
+          git-cliff --latest --strip=all >> $GITHUB_ENV
+          echo 'QLPHHEBORXJEfVzB' >> $GITHUB_ENV
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ env.RELEASE_NOTES }}
+          files: artifacts/**/*

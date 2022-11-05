@@ -24,46 +24,15 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install
-        run:
-          cargo install --path . --root target/install --no-track --locked
-          --verbose
+      - name: Assemble
+        id: assemble
+        run: ./.github/workflows/cargo-assemble.py
 
-      - name: Get Archive Name
-        id: get-archive-name
-        run: |
-          name=$(cargo metadata --no-deps --format-version 1 | jq --raw-output '.packages[].name + "-" + .packages[].version')
-          name="${name}-${{ runner.os }}-${{ runner.arch }}"
-          name=$(echo "${name}" | awk '{print tolower($0)}')
-          echo "result=${name}" >> $GITHUB_OUTPUT
-
-      - name: Create Archive (Windows)
-        if: ${{ matrix.os == 'Windows' }}
-        run: |
-          cd target/install/bin
-          7z a "../${{ steps.get-archive-name.outputs.result }}.zip" *
-
-      - name: Create Archive (Posix)
-        if: ${{ matrix.os != 'Windows' }}
-        run: |
-          cd target/install/bin
-          tar -c -z -f "../${{ steps.get-archive-name.outputs.result }}.tar.gz" *
-
-      - name: Upload Archive (Windows)
-        if: ${{ matrix.os == 'Windows' }}
+      - name: Upload Archive
         uses: actions/upload-artifact@v3
         with:
-          name: "${{ steps.get-archive-name.outputs.result }}.zip"
-          path:
-            "target/install/${{ steps.get-archive-name.outputs.result }}.zip"
-
-      - name: Upload Archive (Posix)
-        if: ${{ matrix.os != 'Windows' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: "${{ steps.get-archive-name.outputs.result }}.tar.gz"
-          path:
-            "target/install/${{ steps.get-archive-name.outputs.result }}.tar.gz"
+          name: ${{ steps.assemble.outputs.archive-name }}
+          path: ${{ steps.assemble.outputs.archive-path }}
 
   publish:
     name: Publish

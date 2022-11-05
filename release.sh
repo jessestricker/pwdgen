@@ -5,6 +5,13 @@ set -e -u -o pipefail
 # parse inputs
 version="$1"
 
+# require clean working tree
+change_count=$(git status --porcelain 2>/dev/null | wc -l)
+if [[ ${change_count} -ne 0 ]]; then
+  echo "error: the working tree must be clean"
+  exit 1
+fi
+
 # set version in manifest and lockfile
 cargo set-version "${version}"
 cargo check --quiet # syncs version in lockfile

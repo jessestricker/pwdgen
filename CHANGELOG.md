@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2022-11-05
+
+### Ci
+
+- Make assemble script executable
+
 ## [0.1.1] - 2022-11-05
 
 ### Miscellaneous Tasks
@@ -9,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Set package version from release script
 - Add changed manifest and lockfile to release commit
 - Require clean working tree for release
+- Release 0.1.1
 
 ### Ci
 

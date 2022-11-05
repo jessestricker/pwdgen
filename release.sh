@@ -12,9 +12,9 @@ cargo check --quiet # syncs version in lockfile
 # update changelog
 tag="v${version}"
 git-cliff --tag="${tag}" --output=CHANGELOG.md
-git add CHANGELOG.md
 
 # create release commit
+git add --all
 git commit --message="chore: release ${version}"
 
 # create release tag

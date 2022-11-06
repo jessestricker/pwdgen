@@ -59,13 +59,10 @@ jobs:
         working-directory: artifacts
 
       - name: Generate Release Notes
-        run: |
-          echo 'RELEASE_NOTES<<QLPHHEBORXJEfVzB' >> $GITHUB_ENV
-          git-cliff --latest --strip=all >> $GITHUB_ENV
-          echo 'QLPHHEBORXJEfVzB' >> $GITHUB_ENV
+        run: git-cliff --latest --strip=all --output=release-notes.md
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ env.RELEASE_NOTES }}
+          body_path: release-notes.md
           files: artifacts/**/*

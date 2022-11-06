@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2022-11-06
+
+### Ci
+
+- Run assemble script with `python3`
+
 ## [0.1.2] - 2022-11-05
+
+### Miscellaneous Tasks
+
+- Release 0.1.2
 
 ### Ci
 

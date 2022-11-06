@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2022-11-06
+
+### Miscellaneous Tasks
+
+- Don't push in release script
+- Add config for git-cliff
+
+### Ci
+
+- Fix release notes missing
+- Fetch all commits for release notes
+
 ## [0.1.3] - 2022-11-06
 
 ### Ci
@@ -9,10 +21,6 @@ All notable changes to this project will be documented in this file.
 - Run assemble script with `python3`
 
 ## [0.1.2] - 2022-11-05
-
-### Miscellaneous Tasks
-
-- Release 0.1.2
 
 ### Ci
 
@@ -25,7 +33,6 @@ All notable changes to this project will be documented in this file.
 - Set package version from release script
 - Add changed manifest and lockfile to release commit
 - Require clean working tree for release
-- Release 0.1.1
 
 ### Ci
 
@@ -50,7 +57,6 @@ All notable changes to this project will be documented in this file.
 ### Miscellaneous Tasks
 
 - Add release script
-- Release 0.1.0
 
 ### Testing
 

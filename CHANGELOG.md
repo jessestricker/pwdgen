@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2022-11-08
+
+### Ci
+
+- Convert path to windows format
+- Fix `sed` invocation on macOS
+- Reformat
+
 ## [0.1.5] - 2022-11-08
 
 ### Ci

@@ -39,13 +39,12 @@ jobs:
           cd ./target/install/bin
           if [[ "${{ matrix.os }}" == "Windows" ]]; then
             archive_name="${archive_basename}.zip"
-            archive_path=$(cygpath --windows --absolute "../${archive_name}")
-            7z a "${archive_path}" .
+            7z a "../${archive_name}" .
           else
             archive_name="${archive_basename}.tar.gz"
-            archive_path=$(realpath "../${archive_name}")
-            tar --create --file "${archive_path}" --gzip --verbose -- *
+            tar --create --file "../${archive_name}" --gzip --verbose -- *
           fi
+          archive_path="./target/install/${archive_name}"
 
           echo "archive-name=${archive_name}" >>"${GITHUB_OUTPUT}"
           echo "archive-path=${archive_path}" >>"${GITHUB_OUTPUT}"

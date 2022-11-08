@@ -33,7 +33,7 @@ jobs:
         id: assemble
         run: |
           pkg_name_ver=$(cargo metadata --format-version 1 --no-deps | jq --raw-output '.packages[0].name + "-" + .packages[0].version')
-          target_triple=$(rustc --version --verbose | sed -e 's/^host: \([A-Za-z0-9_-]*\)$/\1/;t;d')
+          target_triple=$(rustc --version --verbose | sed -e 's/^host: \([A-Za-z0-9_-]*\)$/\1/' -e 't' -e 'd')
           archive_basename="${pkg_name_ver}-${target_triple}"
 
           cd ./target/install/bin

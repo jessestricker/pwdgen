@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2022-11-08
+
+### Ci
+
+- Replace `realpath`, not available on macOS
+
 ## [0.1.6] - 2022-11-08
 
 ### Ci

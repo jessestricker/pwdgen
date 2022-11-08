@@ -24,9 +24,31 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Assemble
+      - name: Build Package
+        run:
+          cargo install --path . --root ./target/install --force --no-track
+          --locked
+
+      - name: Assemble Archive
         id: assemble
-        run: ./.github/workflows/cargo-assemble.py
+        run: |
+          pkg_name_ver=$(cargo metadata --format-version 1 --no-deps | jq --raw-output '.packages[0].name + "-" + .packages[0].version')
+          target_triple=$(rustc --version --verbose | sed -e 's/^host: \([A-Za-z0-9_-]*\)$/\1/;t;d')
+          archive_basename="${pkg_name_ver}-${target_triple}"
+
+          cd ./target/install/bin
+          if [[ "${{ matrix.os }}" == "Windows" ]]; then
+            archive_name="${archive_basename}.zip"
+            archive_path=$(realpath "../${archive_name}")
+            7z a "${archive_path}" .
+          else
+            archive_name="${archive_basename}.tar.gz"
+            archive_path=$(realpath "../${archive_name}")
+            tar --create --file "${archive_path}" --gzip --verbose -- *
+          fi
+
+          echo "archive-name=${archive_name}" >> "${GITHUB_OUTPUT}"
+          echo "archive-path=${archive_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Archive
         uses: actions/upload-artifact@v3

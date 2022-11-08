@@ -47,8 +47,8 @@ jobs:
             tar --create --file "${archive_path}" --gzip --verbose -- *
           fi
 
-          echo "archive-name=${archive_name}" >> "${GITHUB_OUTPUT}"
-          echo "archive-path=${archive_path}" >> "${GITHUB_OUTPUT}"
+          echo "archive-name=${archive_name}" >>"${GITHUB_OUTPUT}"
+          echo "archive-path=${archive_path}" >>"${GITHUB_OUTPUT}"
 
       - name: Upload Archive
         uses: actions/upload-artifact@v3

@@ -39,7 +39,7 @@ jobs:
           cd ./target/install/bin
           if [[ "${{ matrix.os }}" == "Windows" ]]; then
             archive_name="${archive_basename}.zip"
-            archive_path=$(realpath "../${archive_name}")
+            archive_path=$(cygpath --windows --absolute "../${archive_name}")
             7z a "${archive_path}" .
           else
             archive_name="${archive_basename}.tar.gz"

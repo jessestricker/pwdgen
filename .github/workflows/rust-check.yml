@@ -53,6 +53,27 @@ jobs:
       - name: Lint
         run: cargo clippy --all-targets --locked --verbose -- --deny warnings
 
+  deps:
+    name: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Cache Rust Dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install tools
+        run: cargo install --locked cargo-deny
+
+      - name: Run `cargo-deny`
+        run: cargo deny --all-features check
+
   format:
     name: Format
     runs-on: ubuntu-latest

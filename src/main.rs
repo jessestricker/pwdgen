@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use std::{collections::BTreeSet, num::NonZeroU32};
 
 use clap::{Parser, ValueEnum};

@@ -9,9 +9,9 @@ A simple password generator for the command line.
 - Unlike popular password generator websites, this app runs on your machine and
   will never send anything over the network.
 - A small code base and only a few dependencies on widely-used crates allow for
-  simple auditing.
+  easy code audits.
 - Secure default settings, yielding passwords with an entropy of at least 256
-  bits
+  bits.
 
 ### Missing Features
 

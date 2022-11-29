@@ -10,6 +10,16 @@ A simple password generator for the command line.
   will never send anything over the network.
 - A small code base and only a few dependencies on widely-used crates allow for
   simple auditing.
+- Secure default settings, yielding passwords with an entropy of at least 256
+  bits
+
+### Missing Features
+
+This application is supposed to
+[_do one thing and do it well_](https://en.wikipedia.org/wiki/Unix_philosophy),
+so it is intentionally kept small. \
+Nevertheless, [some features](https://github.com/jessestricker/pwdgen/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement)
+are currently missing.
 
 ## Usage
 

@@ -34,6 +34,16 @@ Entropy:    262.18 bits
 Characters: (94) !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 
 w5!:W|zuJO~HT/B0$v4}"mrO3$gMI![Kbn)tV0#f
+
+$ pwdgen -l 16 -c 8 -t uppercase -t lowercase -t digits
+UOdzHtZGQvVV6dcp
+Zyk4VmEkNzDFlvfY
+WLc6o8sNfobmdOBX
+D7ZXQideI9ByOA3H
+tpo7MDaD2TBHu0aZ
+8b2Nf3W85oAup02x
+m4xotyq20rdohuhm
+mbNR1bHjAVjItqqQ
 ```
 
 ## Disclaimer

@@ -11,4 +11,4 @@ publish = false
 
 [dependencies]
 clap = { version = "4.0.27", features = ["derive"] }
-rand = "0.8.5"
+rand = { version = "0.8.5", features = ["getrandom"], default-features = false }

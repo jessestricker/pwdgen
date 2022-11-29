@@ -2,6 +2,15 @@
 
 A simple password generator for the command line.
 
+## Features
+
+- The password is generated using a cryptographically secure pseudo-random
+  number generator (CSPRNG).
+- Unlike popular password generator websites, this app runs on your machine and
+  will never send anything over the network.
+- A small code base and only a few dependencies on widely-used crates allow for
+  simple auditing.
+
 ## Usage
 
 ```console
@@ -26,3 +35,16 @@ Characters: (94) !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
 
 w5!:W|zuJO~HT/B0$v4}"mrO3$gMI![Kbn)tV0#f
 ```
+
+## Disclaimer
+
+I personally use this app as my password generator, as I don't trust
+closed-source websites on generating passwords.
+
+My main motivation with this repository is to have a best-practices template for
+Rust projects available as a reference for new projects. I will also use this
+repository as an integration test for better CI/CD on GitHub.
+
+If you want to use this app for yourself, please check the source code in
+advance. I welcome any issue reports and pull requests on this GitHub
+repository.

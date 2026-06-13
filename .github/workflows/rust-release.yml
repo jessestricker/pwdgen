@@ -50,7 +50,7 @@ jobs:
           echo "archive-path=${archive_path}" >>"${GITHUB_OUTPUT}"
 
       - name: Upload Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.assemble.outputs.archive-name }}
           path: ${{ steps.assemble.outputs.archive-path }}
